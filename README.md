@@ -24,3 +24,11 @@ Edita el array `quizQuestions` en `js/quiz.js`. Cada objeto define `question`, c
 ## Cómo modificar los datos del dashboard
 
 Edita `teamData`, `scorerData`, `resultData`, `timeData` y `pointSeries` en `js/dashboard.js`. Los equipos incluyen resultados y posesión; goleadores, distribución de resultados, franjas de tiempo y series por jornada tienen sus propios conjuntos de datos. Los indicadores y la tabla se recalculan al cambiar la jornada.
+
+## Sílabo en modo aventura
+
+- Abre `silabo.html`; las tareas, el nombre del personaje y bosses superados se guardan en el navegador bajo la clave `silabo_progreso_v1`.
+- Edita la ficha, los tópicos, fechas y recursos directamente en `silabo.html`. Para cambiar descripciones de habilidades o los nombres creativos de los jefes, modifica `skillDescriptions` y `bossNames` en `js/silabo.js`; los nombres de bosses se actualizan desde ese objeto.
+- Para reiniciar desde la interfaz, usa `Resetear progreso` y confirma. También puedes borrar la clave `silabo_progreso_v1` desde las herramientas de almacenamiento del navegador.
+- Los “boss fights” son una metáfora visual de las evaluaciones; las fechas mostradas corresponden a las fechas indicadas en el sílabo.
+- Los recursos con una URL oficial conocida enlazan directamente a ella. Los títulos sin URL proporcionada abren una búsqueda por nombre para evitar inventar direcciones de descarga.

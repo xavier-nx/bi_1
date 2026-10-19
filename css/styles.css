@@ -72,6 +72,9 @@ a { color: inherit; }
 .path-number { position: absolute; top: 17px; right: 21px; color: #e0e7e2; font-family: "Manrope", sans-serif; font-size: 29px; font-weight: 800; }
 .path-icon { display: grid; flex: 0 0 45px; place-items: center; width: 45px; height: 45px; border-radius: 7px; font-size: 21px; }
 .icon-green { background: #e7f3ec; color: var(--green); } .icon-blue { background: #e9f1ff; color: var(--blue); }
+.icon-violet { background: #eee8fb; color: #7750c7; }
+.path-card-adventure { border-color: #dacff0; background: linear-gradient(135deg, #fff 0%, #fbf9ff 100%); }
+.path-card-adventure:hover { border-color: #a88bdf; }
 .path-card-body { max-width: 420px; padding-top: 3px; }
 .path-card .card-kicker { margin-bottom: 9px; }
 .path-card h3 { margin-bottom: 9px; font-size: 21px; font-weight: 800; }
@@ -143,6 +146,7 @@ a { color: inherit; }
 .dark-theme .concept-card p, .dark-theme .note-box p, .dark-theme .example-callout p, .dark-theme .etl-detail p, .dark-theme .etl-tools p { color: #bdc9c1; }
 .dark-theme .note-box, .dark-theme .etl-diagram { background: #18344a; } .dark-theme .example-callout { border-color: #514b31; background: #302d21; }
 .dark-theme .home-band { background: #172f49; } .dark-theme .home-band .btn-light { border-color: var(--line); background: var(--surface); color: var(--ink); }
+.dark-theme .path-card-adventure { border-color: #574c78; background: linear-gradient(135deg, var(--surface), #262744); }
 .dark-theme .decision-table { --bs-table-bg: transparent; --bs-table-color: var(--ink); --bs-table-border-color: var(--line); }
 .dark-theme .learning-accordion .accordion-button { background: var(--surface); color: var(--ink); } .dark-theme .learning-accordion .accordion-button:not(.collapsed) { background: #294b37; color: #b6e1c5; }
 .dark-theme .btn-outline-navy { border-color: #526d88; background: #14283d; color: #d6e4f2; }
