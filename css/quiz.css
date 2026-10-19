@@ -3,7 +3,7 @@
 .quiz-progress-copy { display: flex; justify-content: space-between; margin-bottom: 9px; color: #58665e; font-size: 11px; font-weight: 700; }
 .quiz-progress-copy span:last-child { color: var(--green); }
 .quiz-shell .progress { height: 6px; border-radius: 5px; background: #e7ece8; }
-.quiz-shell .progress-bar { border-radius: inherit; background: var(--green); transition: width .35s ease; }
+.quiz-shell .progress-bar { border-radius: inherit; background: var(--navy); transition: width .35s ease; }
 .quiz-lives { display: flex; gap: 7px; margin-top: 13px; color: var(--red); font-size: 14px; }
 .quiz-lives .life-lost { color: #c8cfca; }
 .quiz-motivation { min-height: 19px; margin-bottom: 8px; color: var(--green); font-size: 11px; font-weight: 700; }
@@ -26,6 +26,8 @@
 .result-score { display: inline-flex; align-items: center; gap: 9px; margin: 5px 0 14px; color: var(--green-dark); text-align: left; }
 .result-score strong { font-family: "Manrope", sans-serif; font-size: 39px; line-height: 1; } .result-score span { font-size: 11px; font-weight: 700; line-height: 1.2; }
 .result-score small { color: var(--muted); } .quiz-results .btn { position: relative; z-index: 2; display: flex; margin: 0 auto; padding: 10px 15px; font-size: 12px; }
+.quiz-result-actions { position: relative; z-index: 2; display: flex; flex-wrap: wrap; justify-content: center; gap: 9px; }
+.quiz-result-actions .btn { margin: 0; }
 .confetti { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
 .confetti i { position: absolute; top: -12px; width: 7px; height: 12px; background: var(--confetti-color); animation: confetti-fall 2s ease-in forwards; }
 @keyframes quiz-pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.08); } }

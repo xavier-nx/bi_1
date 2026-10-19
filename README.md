@@ -9,6 +9,14 @@ Sitio educativo sobre fundamentos de Business Intelligence, decisiones basadas e
 
 Bootstrap, Bootstrap Icons, Chart.js y las fuentes se cargan desde CDN; se requiere conexión a internet para esos recursos.
 
+## Funciones del dashboard
+
+En `dashboard.html`, selecciona la jornada actual y la jornada de comparación. El sitio muestra cambios de goles, puntos, líder y posiciones, además de hallazgos calculados. Los botones `CSV` y `PDF` descargan, respectivamente, la clasificación y un informe con KPI, gráficos y tabla. El PDF utiliza jsPDF desde CDN.
+
+Al terminar el cuestionario, `Descargar resultado` genera un informe PDF con el puntaje y la revisión de respuestas.
+
+La interfaz combina azul marino, teal y dorado; el botón de tema claro/oscuro mantiene su preferencia local.
+
 ## Cómo editar el quiz
 
 Edita el array `quizQuestions` en `js/quiz.js`. Cada objeto define `question`, cuatro textos en `options`, el índice de la respuesta correcta en `answer` (empieza en cero) y una `explanation`. La interfaz calcula el total de preguntas desde ese array.

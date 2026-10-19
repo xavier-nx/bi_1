@@ -18,11 +18,13 @@ let currentQuestion = 0;
 let score = 0;
 let lives = 3;
 let answered = false;
+let answerHistory = [];
 
 document.addEventListener("DOMContentLoaded", () => {
   if (!document.getElementById("quizApp")) return;
   document.getElementById("nextQuestion").addEventListener("click", advanceQuiz);
   document.getElementById("retryQuiz").addEventListener("click", resetQuiz);
+  document.getElementById("exportQuizPdf").addEventListener("click", exportQuizPdf);
   renderQuestion();
 });
 
@@ -62,6 +64,11 @@ function selectAnswer(selectedIndex) {
   const question = quizQuestions[currentQuestion];
   const options = [...document.querySelectorAll(".quiz-option")];
   const feedback = document.getElementById("quizFeedback");
+  answerHistory.push({
+    questionIndex: currentQuestion,
+    selectedAnswer: question.options[selectedIndex],
+    correct: selectedIndex === question.answer
+  });
   options.forEach((option, index) => {
     option.disabled = true;
     if (index === question.answer) option.classList.add("correct");
@@ -135,9 +142,78 @@ function resetQuiz() {
   currentQuestion = 0;
   score = 0;
   lives = 3;
+  answerHistory = [];
   document.getElementById("questionView").classList.remove("d-none");
   document.querySelector(".quiz-status").classList.remove("d-none");
   document.getElementById("quizResults").classList.add("d-none");
   document.getElementById("confetti").replaceChildren();
   renderQuestion();
+}
+
+function exportQuizPdf() {
+  const JsPDF = window.jspdf?.jsPDF;
+  if (!JsPDF) {
+    window.alert("No se pudo cargar el generador PDF. Comprueba tu conexión a internet e inténtalo de nuevo.");
+    return;
+  }
+
+  const percentage = Math.round((score / (quizQuestions.length * 10)) * 100);
+  const doc = new JsPDF({ unit: "mm", format: "a4" });
+  const pageWidth = doc.internal.pageSize.getWidth();
+  let y = 20;
+  doc.setTextColor(16, 43, 70);
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(19);
+  doc.text("Resultado del cuestionario de BI", 16, y);
+  y += 9;
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(10);
+  doc.setTextColor(93, 108, 123);
+  doc.text(`Fecha: ${new Date().toLocaleDateString("es-EC")} · ${document.getElementById("resultTitle").textContent}`, 16, y);
+  y += 12;
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(14);
+  doc.setTextColor(16, 43, 70);
+  doc.text(`Puntaje: ${score} / ${quizQuestions.length * 10} puntos · ${percentage}%`, 16, y);
+  y += 8;
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(10);
+  doc.setTextColor(93, 108, 123);
+  const summary = doc.splitTextToSize(document.getElementById("resultSummary").textContent, pageWidth - 32);
+  doc.text(summary, 16, y);
+  y += summary.length * 5 + 7;
+  doc.setDrawColor(220, 229, 239);
+  doc.line(16, y, pageWidth - 16, y);
+  y += 8;
+
+  quizQuestions.forEach((question, index) => {
+    const recordedAnswer = answerHistory.find((answer) => answer.questionIndex === index);
+    const questionLines = doc.splitTextToSize(`${index + 1}. ${question.question}`, pageWidth - 36);
+    const response = recordedAnswer ? `Tu respuesta: ${recordedAnswer.selectedAnswer}` : "Sin responder (se agotaron los intentos)";
+    const responseLines = doc.splitTextToSize(response, pageWidth - 36);
+    const correctLines = recordedAnswer?.correct ? [] : doc.splitTextToSize(`Respuesta correcta: ${question.options[question.answer]}`, pageWidth - 36);
+    const blockHeight = (questionLines.length + responseLines.length + correctLines.length) * 5 + 5;
+    if (y + blockHeight > 278) {
+      doc.addPage();
+      y = 18;
+    }
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(9);
+    doc.setTextColor(16, 43, 70);
+    doc.text(questionLines, 18, y);
+    y += questionLines.length * 4.5 + 1;
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(8);
+    doc.setTextColor(recordedAnswer?.correct ? 24 : 93, recordedAnswer?.correct ? 115 : 108, recordedAnswer?.correct ? 82 : 123);
+    doc.text(responseLines, 20, y);
+    y += responseLines.length * 4.5;
+    if (correctLines.length) {
+      doc.setTextColor(16, 43, 70);
+      doc.text(correctLines, 20, y);
+      y += correctLines.length * 4.5;
+    }
+    y += 4;
+  });
+
+  doc.save(`resultado-quiz-bi-${percentage}-por-ciento.pdf`);
 }
